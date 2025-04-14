@@ -28,8 +28,8 @@ A Flask-based web application that generates SEO reports by analyzing Google Sea
 
 1. Clone the repository:
 ```bash
-git clone [repository-url]
-cd SEOReport
+git clone https://github.com/kangScripter/SeoReportBuilder
+cd SeoReportBuilder
 ```
 
 2. Create and activate a virtual environment:
@@ -56,6 +56,7 @@ pip install -r requirements.txt
    - Enable Google Search Console API
    - Create OAuth 2.0 credentials
    - Download `client_secrets.json` and place it in the project root
+     
 
 ## Usage
 
