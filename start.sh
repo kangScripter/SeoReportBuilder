@@ -1,1 +1,1 @@
-gunicorn webserver:webapp --bind 0.0.0.0:80 
+gunicorn web:app --bind 0.0.0.0:80 
