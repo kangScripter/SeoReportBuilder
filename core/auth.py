@@ -32,7 +32,7 @@ def get_credentials():
 def authorize():
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE, scopes=SCOPES)
-    flow.redirect_uri = url_for('auth.oauth2callback', _external=True)
+    flow.redirect_uri = 'https://devareview.tech/oauth2callback'#url_for('auth.oauth2callback', _external=True)
     logger.info(flow.redirect_uri)
     authorization_url, state = flow.authorization_url(
         access_type='offline',
