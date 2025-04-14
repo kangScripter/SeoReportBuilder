@@ -20,6 +20,8 @@ A Flask-based web application that generates SEO reports by analyzing Google Sea
 - OpenAI API Key
 - Google OAuth2 Credentials
 
+## Live Link : https://devareview.tech/
+
 ## Installation
 
 1. Clone the repository:
