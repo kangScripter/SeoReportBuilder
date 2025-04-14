@@ -1,1 +1,1 @@
-gunicorn web:app --bind 0.0.0.0:80 
+python3 update.py && gunicorn web:app --bind 0.0.0.0:80 
