@@ -1,4 +1,4 @@
-# app/utils.py
+# core/utils.py
 
 def credentials_to_dict(credentials):
     return {

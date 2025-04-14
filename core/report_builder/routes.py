@@ -7,6 +7,7 @@ import os
 import traceback
 from ..auth import get_credentials
 from dotenv import load_dotenv
+from ..logger import logger
 
 # Load environment variables
 load_dotenv()
@@ -130,7 +131,7 @@ def analyze_query_intent(query):
         intent_category = intent_parts[1] if intent_parts else "Unknown"
         return intent, intent_category
     except Exception as e:
-        print(f"Error analyzing query intent: {str(e)}")
+        logger.error(f"Error analyzing query intent: {str(e)}")
         return "Unknown", "Standard Content"
 
 def get_cached_gsc_data(property_url, credentials):
@@ -149,11 +150,11 @@ def get_cached_gsc_data(property_url, credentials):
     # Try to get cached data
     cached_data = current_app.cache.get(cache_key)
     if cached_data:
-        print("Using cached GSC data")
+        logger.info("Using cached GSC data")
         return cached_data
     
     # If no cached data, fetch from GSC API
-    print("Fetching fresh GSC data")
+    logger.info("Fetching fresh GSC data")
     service = build('searchconsole', 'v1', credentials=credentials)
     
     # Get data for the last 365 days
@@ -280,16 +281,15 @@ def generate_report():
         })
 
     except Exception as e:
-        traceback.print_exc()
-        print(f"Error in generate_report: {str(e)}")
+        logger.error(f"Error in generate_report: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
-@report_bp.route('/api/export-csv', methods=['POST'])
-def export_csv():
-    # Implementation for CSV export
-    pass
+# @report_bp.route('/api/export-csv', methods=['POST'])
+# def export_csv():
+#     # Implementation for CSV export
+#     pass
 
-@report_bp.route('/api/export-sheets', methods=['POST'])
-def export_sheets():
-    # Implementation for Google Sheets export
-    pass 
+# @report_bp.route('/api/export-sheets', methods=['POST'])
+# def export_sheets():
+#     # Implementation for Google Sheets export
+#     pass 
