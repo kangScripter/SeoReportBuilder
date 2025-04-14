@@ -49,7 +49,7 @@ def oauth2callback():
 
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE, scopes=SCOPES, state=state)
-    flow.redirect_uri = url_for('auth.oauth2callback', _external=True)
+    flow.redirect_uri = 'https://devareview.tech/oauth2callback'#url_for('auth.oauth2callback', _external=True)
 
     flow.fetch_token(authorization_response=request.url)
     credentials = flow.credentials
