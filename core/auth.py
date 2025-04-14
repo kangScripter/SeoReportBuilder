@@ -5,7 +5,7 @@ import google.oauth2.credentials
 from google.auth.transport.requests import Request
 import requests
 from .utils import credentials_to_dict, check_granted_scopes
-from logger import logger
+from .logger import logger
 SCOPES = [
     'https://www.googleapis.com/auth/webmasters.readonly']
 CLIENT_SECRETS_FILE = "client_secrets.json"
