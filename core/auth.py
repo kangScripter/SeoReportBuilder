@@ -5,7 +5,7 @@ import google.oauth2.credentials
 from google.auth.transport.requests import Request
 import requests
 from .utils import credentials_to_dict, check_granted_scopes
-
+from logger import logger
 SCOPES = [
     'https://www.googleapis.com/auth/webmasters.readonly']
 CLIENT_SECRETS_FILE = "client_secrets.json"
@@ -33,7 +33,7 @@ def authorize():
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE, scopes=SCOPES)
     flow.redirect_uri = url_for('auth.oauth2callback', _external=True)
-    print(flow.redirect_uri)
+    logger.info(flow.redirect_uri)
     authorization_url, state = flow.authorization_url(
         access_type='offline',
         include_granted_scopes='true')
