@@ -44,7 +44,7 @@ def authorize():
 
 @auth_bp.route('/oauth2callback')
 def oauth2callback():
-    if "state" in session
+    if "state" in session:
         state = session['state']
 
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
