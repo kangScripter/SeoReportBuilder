@@ -55,8 +55,8 @@ def oauth2callback():
 
     flow.fetch_token(authorization_response=request.url)
     credentials = flow.credentials
-    logger.info(credentials)
     session['credentials'] = credentials_to_dict(credentials)
+    logger.info(session['credentials'])
     session['features'] = check_granted_scopes(session['credentials'])
 
     return redirect('/')
