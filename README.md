@@ -24,7 +24,7 @@ A Flask-based web application that generates SEO reports by analyzing Google Sea
 
 ## Live Link : https://devareview.tech/
 
-## Installation
+## Installation (Local)
 
 1. Clone the repository:
 ```bash
@@ -57,6 +57,7 @@ pip install -r requirements.txt
    - Create OAuth 2.0 credentials
    - Download `client_secrets.json` and place it in the project root
      
+## Installation (AWS)
 
 ## Usage
 
