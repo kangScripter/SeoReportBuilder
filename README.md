@@ -2,7 +2,7 @@
 
 A Flask-based web application that generates SEO reports by analyzing Google Search Console data and providing query intent analysis using OpenAI's API.
 
-![Flow Chart](https://github.com/user-attachments/assets/fb48bb01-6111-4324-9773-93a43912a578)
+![Flow Chart](https://github.com/user-attachments/assets/0ea92161-f24c-4f6a-9326-4836e04de583)
 
 ## Features
 
