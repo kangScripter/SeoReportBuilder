@@ -8,7 +8,7 @@ import traceback
 from ..auth import get_credentials
 from dotenv import load_dotenv
 from ..logger import logger
-
+from ..db import add_query, get_query
 # Load environment variables
 load_dotenv()
 
@@ -178,6 +178,17 @@ def get_cached_gsc_data(property_url, credentials):
     
     return response
 
+def cache_intent(query):
+    cached_data = get_query(query)
+    if cached_data:
+        logger.info(f"Using cached intent data for {query}")
+        return cached_data
+    logger.info(f"Analyzing query intent for {query}")
+    intent, category = analyze_query_intent(query)
+    cached_data = add_query(query,[intent, category])
+    print(cached_data)
+    return cached_data
+
 @report_bp.route('/api/properties', methods=['GET'])
 def get_properties():
     """Get list of verified Search Console properties.
@@ -220,7 +231,7 @@ def generate_report():
 
         # Get cached or fresh GSC data
         response = get_cached_gsc_data(property_url, credentials)
-        
+
         time_range = data.get('timeRange')
         metrics = data.get('metrics', [])
         page = int(data.get('page', 1))
@@ -259,10 +270,13 @@ def generate_report():
                         result[metric] = metrics_data[metric]
             
             # Analyze query intent
-            response, category = analyze_query_intent(result['query'])
-            result['intent'] = response
-            result['category'] = category
-            results.append(result)
+            query = result['query']
+            cached_query = cache_intent(query)
+            print(cached_query)
+            if cached_query["_id"] == query:
+                result['intent'] = cached_query['data'][0]
+                result['category'] = cached_query['data'][1]
+                results.append(result)
 
         # Calculate pagination info
         total_count = len(rows)
@@ -281,6 +295,7 @@ def generate_report():
         })
 
     except Exception as e:
+        traceback.print_exc()
         logger.error(f"Error in generate_report: {str(e)}")
         return jsonify({'error': str(e)}), 500
 

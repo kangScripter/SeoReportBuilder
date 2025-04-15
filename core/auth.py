@@ -1,4 +1,4 @@
-# app/auth.py
+# core/auth.py
 from flask import Blueprint, session, redirect, url_for, request
 import google_auth_oauthlib.flow
 import google.oauth2.credentials
@@ -6,6 +6,8 @@ from google.auth.transport.requests import Request
 import requests
 from .utils import credentials_to_dict, check_granted_scopes
 from .logger import logger
+import os
+
 SCOPES = [
     'https://www.googleapis.com/auth/webmasters.readonly']
 CLIENT_SECRETS_FILE = "client_secrets.json"
@@ -32,7 +34,7 @@ def get_credentials():
 def authorize():
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE, scopes=SCOPES)
-    flow.redirect_uri = 'https://devareview.tech/oauth2callback'#url_for('auth.oauth2callback', _external=True)
+    flow.redirect_uri = os.getenv("REDIRECT_URI")
     logger.info(flow.redirect_uri)
     authorization_url, state = flow.authorization_url(
         access_type='offline',
@@ -49,7 +51,7 @@ def oauth2callback():
 
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE, scopes=SCOPES, state=state)
-    flow.redirect_uri = 'https://devareview.tech/oauth2callback'#url_for('auth.oauth2callback', _external=True)
+    flow.redirect_uri = os.getenv("REDIRECT_URI")
 
     flow.fetch_token(authorization_response=request.url)
     credentials = flow.credentials
