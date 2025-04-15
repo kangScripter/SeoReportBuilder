@@ -18,7 +18,6 @@ def get_credentials():
     """Get and validate credentials from the session."""
     if 'credentials' not in session:
         return None
-    logger.info(session['credentials'])
     try:
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
         if not credentials.valid:
@@ -35,7 +34,6 @@ def authorize():
     flow = google_auth_oauthlib.flow.Flow.from_client_secrets_file(
         CLIENT_SECRETS_FILE, scopes=SCOPES)
     flow.redirect_uri = os.getenv("REDIRECT_URI")
-    logger.info(flow.redirect_uri)
     authorization_url, state = flow.authorization_url(
         access_type='offline',
         include_granted_scopes='true')
