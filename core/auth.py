@@ -18,7 +18,7 @@ def get_credentials():
     """Get and validate credentials from the session."""
     if 'credentials' not in session:
         return None
-    print(session['credentials'])
+    logger.info(session['credentials'])
     try:
         credentials = google.oauth2.credentials.Credentials(**session['credentials'])
         if not credentials.valid:
