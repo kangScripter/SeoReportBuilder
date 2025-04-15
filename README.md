@@ -23,6 +23,8 @@ A Flask-based web application that generates SEO reports by analyzing Google Sea
 - Google OAuth2 Credentials
 
 ## Live Link : https://devareview.tech/
+Website is Deployed on AWS Server 
+ 
 
 ## Installation (Local)
 
@@ -58,6 +60,36 @@ pip install -r requirements.txt
    - Download `client_secrets.json` and place it in the project root
      
 ## Installation (AWS)
+1. Clone the repository on your AWS EC2 instance:
+
+```bash
+git clone https://github.com/kangScripter/SeoReportBuilder
+cd SeoReportBuilder
+```
+
+2. Install Docker-compose:
+```bash
+sudo apt install docker-compose
+```
+3. Set up environment variables:
+   - Copy `.env.example` to `.env`
+   - Update the following variables in `.env`:
+     ```
+     OPENAI_KEY=your_openai_api_key
+     SECRET_KEY=your_secret_key
+     ```
+
+4. Set up Google OAuth:
+   - Create a project in Google Cloud Console
+   - Enable Google Search Console API
+   - Create OAuth 2.0 credentials
+   - Download `client_secrets.json` and place it in the project root
+
+5. Build and Run Docker-compose:
+```bash
+sudo docker-compose up --build
+```
+Note : Make sure you open the port 80
 
 ## Usage
 
